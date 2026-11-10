@@ -2,11 +2,10 @@
 
     <compiler angle="radian"/>
     <option timestep="0.001" gravity="0 0 -9.8" integrator="RK4" iterations="60" ls_iterations="20"/>
-    <default>
-        <joint limited="true" armature="0.01" damping="2"/>
-    </default>
-
-    <include file="models/alex/alex/robot.xml"/>
-    <include file="models/alex/scenes/vertical.xml"/>
     
+    <include file="models/alex/alex.xml"/>
+    <include file="models/microban/microban.xml"/>
+    <include file="models/robotis_op3/op3.xml"/>
+    <include file="models/world/scenes/horizontal.xml"/>
+
 </mujoco>

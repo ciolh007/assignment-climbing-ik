@@ -10,8 +10,8 @@
         <material name="grey" rgba="0.3 0.3 0.3 1"/>
         <material name="yellow" rgba="0.9 0.7 0.1 1"/>
         <!-- Hold & Wall -->
-        <mesh name="wall" file="meshes/wall.stl" scale="0.001 0.001 0.001"/>
-        <mesh name="hold" content_type="model/stl" file="meshes/hold.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="wall" file="models/world/meshes/wall.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="hold" content_type="model/stl" file="models/world/meshes/hold.stl" scale="0.001 0.001 0.001"/>
     </asset>
 
     <worldbody>

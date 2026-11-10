@@ -7,6 +7,5 @@
     </default>
 
     <include file="robot.xml"/>
-    <include file="scenes/horizontal.xml"/>
     
 </mujoco>

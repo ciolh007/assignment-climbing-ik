@@ -1,5 +1,10 @@
-<mujoco>
-
+<mujoco model="alex">
+    <compiler angle="radian" autolimits="true"/>
+    <default>
+        <default class="alex">
+            <joint limited="true" armature="0.01" damping="2"/>
+        </default>
+    </default>
     <asset>
          <!-- Holds Color -->
         <material name="red" rgba="1 0 0 1"/>
@@ -32,7 +37,7 @@
         <!-- ROBOT ROOT : PELVIS                                    -->
         <!-- ROBOT Rotation                                         -->
         <!-- ====================================================== -->
-        <body name="pelvis" pos="0 0.026 0.1" euler="1.57 3.14 0">
+        <body name="pelvis" pos="0 -0.5 0.05" euler="1.57 3.14 0">
         <!-- Pelvis mesh -->
         <freejoint name="robot_free_root"/>
         <geom name="pelvis_collision" type="mesh" mesh="pelvis"/>
