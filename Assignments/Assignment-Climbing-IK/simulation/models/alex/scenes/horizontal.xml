@@ -1,0 +1,235 @@
+<mujoco>
+
+    <asset>
+        <texture type="2d" colorspace="auto" name="grid" builtin="checker" mark="cross" rgb1="0.1 0.2 0.3" rgb2="0.2 0.3 0.4" markrgb="0.8 0.8 0.8" width="512" height="512"/>
+        <texture type="2d" colorspace="linear" name="wall_text" file="meshes/wall_color.png"/>
+        <material name="grid" texture="grid" texrepeat="80 80" reflectance="0.2"/>
+        <material name="wall_mat" texture="wall_text" texrepeat="1 1" specular="0.05" shininess="0" reflectance="0.1"/>
+        <material name="blue" rgba="0 0 1 1"/>  
+        <material name="magenta" rgba="1 0 1 1"/>
+        <material name="grey" rgba="0.3 0.3 0.3 1"/>
+        <material name="yellow" rgba="0.9 0.7 0.1 1"/>
+        <!-- Hold & Wall -->
+        <mesh name="wall" file="meshes/wall.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="hold" content_type="model/stl" file="meshes/hold.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <worldbody>
+        <!-- Floor -->
+        <geom name="floor" size="5 5 0.1" type="plane" friction="0.2 0.005 0.0001" contype="1" conaffinity="1" solimp="0.9 0.95 0.001" material="grid"/>
+        <!-- Cameras -->
+        <camera name="front_view" pos="0 -0.5 0.2" quat="0.707107 0.707107 0 0"/>
+        <camera name="side_view" pos="0.7 0 0.2" quat="0.5 0.5 0.5 0.5"/>
+        <camera name="top_view" pos="0 0 1"/>
+        <!-- Lights -->
+        <light name="main_light" pos="0 0 1" dir="0 0 -1" cutoff="100" diffuse="1 1 1"/>
+        <light name="fill_light" pos="0.7 -0.5 0.7" dir="-1 1 -0.5" diffuse="1 1 1" specular="0.2 0.2 0.2"/>
+        <!-- Wall -->
+      <body name="wall" pos="-0.05 0.1 0" euler="0 0 0"> 
+        <geom name="wall_col" type="mesh" mesh="wall" pos="0 0 0" euler="0 1.57 1.57" material="wall_mat"/>
+    <!-- Yellow Holders Top -->
+      <geom name="yellow_U_hold_b_visual" type="mesh" mesh="hold" pos="-0.09 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_b_collision_frame" pos="-0.09 -0.05 0.285">
+          <geom name="yellow_U_hold_b_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_b_slot_U" type="box" pos="-0.015 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_b_slot_R" type="box" pos="0.0155 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_b_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>      
+      <geom name="yellow_U_hold_a_visual" type="mesh" mesh="hold" pos="-0.02 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_a_collision_frame" pos="-0.02 -0.05 0.285">
+          <geom name="yellow_U_hold_a_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_a_slot_U" type="box" pos="-0.015 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_a_slot_R" type="box" pos="0.0155 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_a_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body> 
+      <geom name="yellow_U_hold_1_visual" type="mesh" mesh="hold" pos="0.06 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"   />
+        <body name="yellow_U_hold_1_collision_frame" pos="0.06 -0.05 0.285">
+          <geom name="yellow_U_hold_1_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_1_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_1_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_1_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>          
+        </body>
+      <geom name="yellow_U_hold_2_visual" type="mesh" mesh="hold" pos="0.105 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_2_collision_frame" pos="0.105 -0.05 0.285">
+          <geom name="yellow_U_hold_2_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_2_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_2_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_2_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+     <geom name="yellow_U_hold_3_visual" type="mesh" mesh="hold" pos="0.19 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_3_collision_frame" pos="0.19 -0.05 0.285">
+          <geom name="yellow_U_hold_3_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_3_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_3_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_3_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+     <geom name="yellow_U_hold_4_visual" type="mesh" mesh="hold" pos="0.26 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_4_collision_frame" pos="0.26 -0.05 0.285">
+          <geom name="yellow_U_hold_4_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_4_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_4_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_4_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+     <geom name="yellow_U_hold_5_visual" type="mesh" mesh="hold" pos="0.33 -0.05 0.285" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_U_hold_5_collision_frame" pos="0.33 -0.05 0.285">
+          <geom name="yellow_U_hold_5_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_5_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_5_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_U_hold_5_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>             
+    <!-- Yellow Holders Bottom -->    
+      <geom name="yellow_L_hold_b_visual" type="mesh" mesh="hold" pos="-0.09 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_b_collision_frame" pos="-0.09 -0.05 0.09">
+          <geom name="yellow_L_hold_b_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_b_slot_L" type="box" pos="-0.015 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_b_slot_R" type="box" pos="0.0155 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_b_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>      
+      <geom name="yellow_L_hold_a_visual" type="mesh" mesh="hold" pos="-0.02 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_a_collision_frame" pos="-0.02 -0.05 0.09">
+          <geom name="yellow_L_hold_a_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_a_slot_L" type="box" pos="-0.015 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_a_slot_R" type="box" pos="0.0155 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_a_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>     
+      <geom name="yellow_L_hold_1_visual" type="mesh" mesh="hold" pos="0.05 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_1_collision_frame" pos="0.05 -0.05 0.09">
+          <geom name="yellow_L_hold_1_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_1_slot_L" type="box" pos="-0.015 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_1_slot_R" type="box" pos="0.0155 -0.005 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_1_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="yellow_L_hold_2_visual" type="mesh" mesh="hold" pos="0.12 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_2_collision_frame" pos="0.12 -0.05 0.09">
+          <geom name="yellow_L_hold_2_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_2_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_2_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_2_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="yellow_L_hold_3_visual" type="mesh" mesh="hold" pos="0.19 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_3_collision_frame" pos="0.19 -0.05 0.09">
+          <geom name="yellow_L_hold_3_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_3_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_3_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_3_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="yellow_L_hold_4_visual" type="mesh" mesh="hold" pos="0.26 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_4_collision_frame" pos="0.26 -0.05 0.09">
+          <geom name="yellow_L_hold_4_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_4_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_4_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_4_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="yellow_L_hold_5_visual" type="mesh" mesh="hold" pos="0.33 -0.05 0.09" euler="0 0 0" size=" 0.04 0.025 0.02" material="yellow" contype="0" conaffinity="0"/>
+        <body name="yellow_L_hold_5_collision_frame" pos="0.33 -0.05 0.09">
+          <geom name="yellow_L_hold_5_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_5_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_5_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="yellow_L_hold_5_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>        
+
+    <!-- Green Holders Top -->
+      <geom name="green_U_hold_b_visual" type="mesh" mesh="hold" pos="-0.12 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"   />
+        <body name="green_U_hold_b_collision_frame" pos="-0.12 -0.05 0.32">
+          <geom name="green_U_hold_b_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_b_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_b_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_b_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_U_hold_a_visual" type="mesh" mesh="hold" pos="-0.05 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"   />
+        <body name="green_U_hold_a_collision_frame" pos="-0.05 -0.05 0.32">
+          <geom name="green_U_hold_aase" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_a_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_a_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_a_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_U_hold_0_visual" type="mesh" mesh="hold" pos="0.08 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_U_hold_0_co1ision_frame" pos="0.08 -0.05 0.32" euler="0 0 0">
+          <geom name="green_U_hold_0_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_0_slot_U" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_0_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_0_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>    
+      <geom name="green_U_hold_1_visual" type="mesh" mesh="hold" pos="0.02 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"   />
+        <body name="green_U_hold_1_collision_frame" pos="0.02 -0.05 0.32">
+          <geom name="green_U_hold_1_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_1_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_1_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_1_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_U_hold_2_visual" type="mesh" mesh="hold" pos="0.14 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_U_hold_2_collision_frame" pos="0.14 -0.05 0.32">
+          <geom name="green_U_hold_2_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_2_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_2_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_2_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_U_hold_3_visual" type="mesh" mesh="hold" pos="0.21 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_U_hold_3_collision_frame" pos="0.21 -0.05 0.32">
+          <geom name="green_U_hold_3_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_3_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_3_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_3_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_U_hold_4_visual" type="mesh" mesh="hold" pos="0.28 -0.05 0.32" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_U_hold_4_collision_frame" pos="0.28 -0.05 0.32">
+          <geom name="green_U_hold_4_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_4_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_4_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_U_hold_4_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+    <!-- Green Holders Bottom -->    
+      <geom name="green_L_hold_b_visual" type="mesh" mesh="hold" pos="-0.12 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"   />
+        <body name="green_L_hold_b_collision_frame" pos="-0.12 -0.05 0.12">
+          <geom name="green_L_hold_b_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_b_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_b_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_b_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_L_hold_a_visual" type="mesh" mesh="hold" pos="-0.05 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"   />
+        <body name="green_L_hold_a_collision_frame" pos="-0.05 -0.05 0.12">
+          <geom name="green_L_hold_aase" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_a_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_a_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_a_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_L_hold_0_visual" type="mesh" mesh="hold" pos="0.08 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_L_hold_0_co1ision_frame" pos="0.08 -0.05 0.12" euler="0 0 0">
+          <geom name="green_L_hold_0_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_0_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_0_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_0_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>  
+      <geom name="green_L_hold_1_visual" type="mesh" mesh="hold" pos="0.02 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_L_hold_1_co1ision_frame" pos="0.02 -0.05 0.12" euler="0 0 0">
+          <geom name="green_L_hold_1_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_1_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_1_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_1_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_L_hold_2_visual" type="mesh" mesh="hold" pos="0.14 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_L_hold_2_collision_frame" pos="0.14 -0.05 0.12" euler="0 0 0">
+          <geom name="green_L_hold_2_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_2_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.003 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_2_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_2_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_L_hold_3_visual" type="mesh" mesh="hold" pos="0.21 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_L_hold_3_collision_frame" pos="0.21 -0.05 0.12">
+          <geom name="green_L_hold_3_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_3_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_3_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_3_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+      <geom name="green_L_hold_4_visual" type="mesh" mesh="hold" pos="0.28 -0.05 0.12" euler="0 0 0" size=" 0.04 0.025 0.02" material="green" contype="0" conaffinity="0"/>
+        <body name="green_L_hold_4_collision_frame" pos="0.28 -0.05 0.12">
+          <geom name="green_L_hold_4_base" type="box" pos="0 -0.007 0.009" size="0.015 0.001 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_4_slot_L" type="box" pos="-0.015 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_4_slot_R" type="box" pos="0.0155 -0.003 0.009" size="0.001 0.005 0.003" friction="2 0.1 0.01" material="blue" group="4"/>
+          <geom name="green_L_hold_4_slip" type="box" pos="0 -0.0042 0.0025" size="0.015 0.001 0.005" euler="0.7 0 0" friction="0.01 0.001 0.0001" material="blue" group="4"/>
+        </body>
+       </body>    
+
+    </worldbody>   
+
+</mujoco>             

@@ -1,0 +1,250 @@
+<mujoco>
+
+    <asset>
+         <!-- Holds Color -->
+        <material name="red" rgba="1 0 0 1"/>
+        <material name="green" rgba="0 1 0 1"/>
+        <!-- Robot -->
+        <mesh name="L_calf" content_type="model/stl" file="meshes/L_calf.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_thigh" content_type="model/stl" file="meshes/L_thigh.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_calf" content_type="model/stl" file="meshes/R_calf.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_thigh" content_type="model/stl" file="meshes/R_thigh.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_upper_hip" content_type="model/stl" file="meshes/R_upper_hip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_upper_hip" content_type="model/stl" file="meshes/L_upper_hip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="pelvis" content_type="model/stl" file="meshes/pelvis.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="torso" content_type="model/stl" file="meshes/torso.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_forearm" content_type="model/stl" file="meshes/R_forearm.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_forearm" content_type="model/stl" file="meshes/L_forearm.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_paw" content_type="model/stl" file="meshes/L_paw.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_hand" content_type="model/stl" file="meshes/L_hand.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_paw" content_type="model/stl" file="meshes/R_paw.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_lower_hip" content_type="model/stl" file="meshes/L_lower_hip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_lower_hip" content_type="model/stl" file="meshes/R_lower_hip.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_hand" content_type="model/stl" file="meshes/R_hand.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_upper_arm" content_type="model/stl" file="meshes/L_upper_arm.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_upper_arm" content_type="model/stl" file="meshes/R_upper_arm.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="L_shoulder" content_type="model/stl" file="meshes/L_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="R_shoulder" content_type="model/stl" file="meshes/R_shoulder.stl" scale="0.001 0.001 0.001"/>
+    </asset>
+
+    <worldbody>
+        <!-- ====================================================== -->
+        <!-- ROBOT ROOT : PELVIS                                    -->
+        <!-- ROBOT Rotation                                         -->
+        <!-- ====================================================== -->
+        <body name="pelvis" pos="0 0.026 0.1" euler="1.57 3.14 0">
+        <!-- Pelvis mesh -->
+        <freejoint name="robot_free_root"/>
+        <geom name="pelvis_collision" type="mesh" mesh="pelvis"/>
+        <!-- ================================================== -->
+        <!-- TORSO                                              -->
+        <!-- ================================================== -->
+        <body name="torso" pos="-0.0325401 0.119518 -0.0245885" quat="0.5 -0.5 0.5 0.5">
+            <inertial pos="-0.015903 5.71722e-05 0.0334119" quat="0.700502 0.700205 -0.0972778 0.0977066" mass="0.0382888" diaginertia="1.73548e-05 1.37244e-05 5.36469e-06"/>
+            <joint name="pelvis_pelvis_yaw" pos="0 0 0" axis="0 0 1" range="-1.39626 1.39626" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="torso_collision" pos="-0.0246385 -0.0325643 -0.11956" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="torso"/>
+        <!-- 位置與方向之後可對齊實體 IMU 的安裝方式 -->
+            <site name="torso_imu" pos="0 0 0" size="0.003" rgba="1 0.5 0 1"/>
+            <!-- ============================================== -->
+            <!-- RIGHT ARM                                      -->
+            <!-- ============================================== -->
+            <body name="R_shoulder" pos="-0.0179114 0.0364854 0.0406304" quat="0.5 0.5 -0.5 -0.5">
+            <inertial pos="-0.00853081 -0.00689492 0.000903815" quat="0.872704 0.488218 -0.0055236 -0.000105321" mass="0.0162899" diaginertia="1.83368e-06 1.26333e-06 1.05244e-06"/>
+            <joint name="torso_R_shoulder_pitch" pos="0 0 0" axis="-1 0 0" range="-1.39626 1.39626" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="R_shoulder_collision" pos="-0.00980299 0.00464036 0.103176" quat="0.5 -0.5 -0.5 0.5" type="mesh" mesh="R_shoulder"/>
+            <body name="R_upper_arm" pos="-0.00895998 -0.0019 -0.0182435" quat="0.5 -0.5 0.5 0.5">
+                <inertial pos="0.00193259 -0.00444989 0.0273862" quat="0.714956 -0.0140962 -0.0700328 0.695511" mass="0.0169706" diaginertia="2.34056e-06 1.71229e-06 1.10091e-06"/>
+                <joint name="R_shoulder_R_shoulder_roll" pos="0 0 0" axis="1 0 0" range="-2.8 0" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="R_upper_arm_collision" pos="-0.0309922 0.159718 -0.094277" quat="0 -0.707107 0 0.707107" type="mesh" mesh="R_upper_arm"/>
+                <body name="R_forearm" pos="-0.0171705 -0.00499956 0.0336591" quat="0.707107 0.707107 0 0">
+                <inertial pos="-0.00547597 0.0229689 -0.00105627" quat="0.602891 0.797267 0.0282963 0.00929558" mass="0.0164778" diaginertia="2.01146e-06 1.39503e-06 1.07859e-06"/>
+                <joint name="R_upper_arm_R_elbow_roll" pos="0 0 0" axis="-1 0 0" range="-1.8 0" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="R_forearm_collision" pos="-0.0136951 -0.164751 0.127695" quat="0.707107 0 -0.707107 0" type="mesh" mesh="R_forearm"/>
+                <body name="R_hand" pos="-0.00591601 0.0285004 0.0180637" quat="0 -0.707107 0 -0.707107">
+                    <inertial pos="0.00657785 -0.00439944 -0.00398721" quat="0.467222 0.636661 -0.376507 0.484364" mass="0.00294315" diaginertia="4.28185e-07 3.53912e-07 1.08102e-07"/>
+                    <joint name="R_forearm_R_wrist_pitch" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626" actuatorfrcrange="-1000000 1000000"/>
+                    <geom name="R_hand_collision_visual" pos="0.109638 0.19325 -0.00778609" quat="0 -1 0 0" type="mesh" mesh="R_hand" contype="0" conaffinity="0"/>
+                    <body name="R_hand_collision_frame" pos="0.01 -0.009 -0.005" euler="0 1.5708 0">
+                    <geom name="R_hand_collision" type="box" size="0.0015 0.02 0.0075" material="red" group="3"/> 
+                    </body>
+                    <body name="R_paw" pos="0.00949615 -0.0213487 -0.00314837" quat="0.707107 0 -0.707107 0">
+                    <inertial pos="-0.0135322 8.21649e-05 -2.05369e-06" quat="0.505303 0.506313 0.494711 0.493535" mass="0.001017" diaginertia="4.30468e-08 2.6447e-08 2.01823e-08"/>
+                    <joint name="R_hand_R_wrist_roll" pos="0 0 0" axis="1 0 0" actuatorfrcrange="-1000000 1000000" range="-1.396262 1.39626" damping="0.001"/>
+                    <geom name="R_paw_collision_visual" pos="-0.00478179 0.214596 -0.100145" quat="0 -0.707107 0 0.707107" type="mesh" mesh="R_paw" contype="0" conaffinity="0"/>
+                    <site name="R_hand_site" pos="-0.018 0.005 0" size="0.003" material="green"/>
+                    <!-- add right arm collision frames -->
+                    <body name="R_hook_collision_frame" pos="-0.0185 0.001 0.0045" euler="0 0 0">
+                    <geom name="capsule_R_hook_l" type="capsule" fromto="0 0 0 0 0.007 0" size="0.002" friction="1 0.1 0.01" material="red" group="3"/>
+                    <geom name="capsule_R_hook_r" type="capsule" fromto="0 0 -0.009 0 0.007 -0.009" size="0.002" friction="1 0.1 0.01" material="red" group="3"/>
+                    </body>
+                    <body name="R_palm_collision_frame" pos="-0.0135 0 0" euler="0 0 0">
+                    <geom name="R_palm_collision" type="box" size="0.008 0.002 0.0075" material="red" group="3"/>
+                    </body>
+                    <!-- <body name="R_hand_collision_frame" pos="-0.0028 0.012 0" euler="0 0 0">-->
+                    <!-- <geom name="R_hand_collision" type="box" size="0.0015 0.02 0.0075" material="red" group="3"/> --> 
+                    </body>
+                </body>
+                </body>
+            </body>
+            </body>
+            <!-- ============================================== -->
+            <!-- LEFT ARM                                       -->
+            <!-- ============================================== -->
+            <body name="L_shoulder" pos="-0.0178885 -0.0363718 0.0406565" quat="0.5 -0.5 0.5 -0.5">
+            <inertial pos="0.00853082 0.00689492 -0.000985028" quat="0.872233 0.489057 -0.00564414 -1.89285e-05" mass="0.0162899" diaginertia="1.83386e-06 1.26243e-06 1.05351e-06"/>
+            <joint name="torso_L_shoulder_pitch" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="L_shoulder_collision" pos="0.00980299 -0.00464036 0.103176" quat="0.5 -0.5 0.5 -0.5" type="mesh" mesh="L_shoulder"/>
+            <body name="L_upper_arm" pos="0.00895998 0.0019 0.0181568" quat="0.5 -0.5 -0.5 -0.5">
+                <inertial pos="0.00193259 -0.0044499 -0.0273862" quat="0.714955 0.0140961 0.0700329 0.695511" mass="0.0169706" diaginertia="2.34056e-06 1.71229e-06 1.10091e-06"/>
+                <joint name="L_shoulder_L_shouldr_roll" pos="0 0 0" axis="1 0 0" range="0 2.8" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="L_upper_arm_collision" pos="-0.0309291 0.159856 0.0286137" quat="0 -0.707107 0 0.707107" type="mesh" mesh="L_upper_arm"/>
+                <body name="L_forearm" pos="-0.0171705 -0.00499956 -0.0336591" quat="0.707107 -0.707107 0 0">
+                <inertial pos="-0.00547597 0.0229688 0.000931147" quat="0.79883 0.600831 0.00968246 0.0279313" mass="0.0164778" diaginertia="2.01105e-06 1.39612e-06 1.07715e-06"/>
+                <joint name="L_upper_arm_L_elbow_roll" pos="0 0 0" axis="-1 0 0" range="0 1.8" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="L_forearm_collision" pos="-0.0137137 -0.164824 -0.0621635" quat="0.707107 0 -0.707107 0" type="mesh" mesh="L_forearm"/>
+                <body name="L_hand" pos="-0.00591602 0.0285004 -0.0182003" quat="0.707107 0 -0.707107 0">
+                    <inertial pos="-0.00657785 0.00439944 0.0039872" quat="0.467222 0.636661 -0.376507 0.484364" mass="0.00294315" diaginertia="4.28185e-07 3.53912e-07 1.08102e-07"/>
+                    <joint name="L_forearm_L_wrist_pitch" pos="0 0 0" axis="-1 0 0" range="-1.39626 1.39626" actuatorfrcrange="-1000000 1000000"/>
+                    <geom name="L_hand_collision_visual" pos="-0.0439741 -0.193316 0.00779139" quat="1 0 0 0" type="mesh" mesh="L_hand" contype="0" conaffinity="0" />
+                    <body name="L_hand_collision_frame" pos="-0.01 0.009 0.005" euler="0 1.5708 0">
+                    <geom name="L_hand_collision" type="box" size="0.0015 0.02 0.0075" material="red" group="3"/> 
+                    </body>
+                    <body name="L_paw" pos="-0.00949615 0.0213487 0.00314837" quat="0.707107 0 0.707107 0">
+                    <inertial pos="-0.0134151 -8.12711e-05 -2.02817e-06" quat="0.493853 0.494827 0.505997 0.505195" mass="0.00102816" diaginertia="4.4365e-08 2.77655e-08 2.01951e-08"/>
+                    <joint name="L_hand_L_wrist_roll" pos="0 0 0" axis="-1 0 0"  actuatorfrcrange="-1000000 1000000" range="-1.39626 1.39626" damping="0.001"/>
+                    <geom name="L_paw_collision_visual" pos="-0.00478691 -0.214683 -0.0344763" quat="0.707107 0 -0.707107 0" type="mesh" mesh="L_paw" contype="0" conaffinity="0"/>
+                    <site name="L_hand_site" pos="-0.018 -0.005 0" size="0.003" material="green"/>
+                    <!-- add Left arm collision frames -->
+                    <body name="L_hook_collision_frame" pos="-0.0185 -0.006 0.0045" euler="0 0 0">
+                    <geom name="capsule_L_hook_l" type="capsule" fromto="0 -0.002 0 0 0.005 0" size="0.002" friction="1 0.1 0.01" material="red" group="3"/>
+                    <geom name="capsule_L_hook_r" type="capsule" fromto="0 -0.002 -0.009 0 0.005 -0.009" size="0.002" friction="1 0.1 0.01" material="red" group="3"/>
+                    </body>
+                    <body name="L_palm_collision_frame" pos="-0.0135 0 0" euler="0 0 0">
+                    <geom name="L_palm_collision" type="box" size="0.008 0.002 0.0075" friction="2 0.1 0.01" material="red" group="3"/>
+                    </body>
+                    </body>
+                </body>
+                </body>
+            </body>
+            </body>
+        </body>
+        <!-- torso -->
+        <!-- ================================================== -->
+        <!-- RIGHT LEG                                          -->
+        <!-- IMPORTANT: NOW INSIDE PELVIS                        -->
+        <!-- ================================================== -->
+        <body name="R_upper_hip" pos="-0.060653 0.103422 -0.00987889" quat="0.707107 0 0.707107 0">
+            <inertial pos="-0.00853081 0.000903813 0.00689492" quat="0.962317 -0.271873 -0.00398025 0.0038313" mass="0.0162899" diaginertia="1.83368e-06 1.26333e-06 1.05244e-06"/>
+            <joint name="pelvis_R_pelvis_roll" pos="0 0 0" axis="-1 0 0" range="-1.39626 0" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="R_upper_hip_collision" pos="-0.00980299 -0.103194 0.060642" quat="0.707107 0 -0.707107 0" type="mesh" mesh="R_upper_hip"/>
+            <body name="R_lower_hip" pos="-0.00895998 -0.0182435 0.0019" quat="0.707107 0.707107 0 0">
+            <inertial pos="-0.000903808 0.00689492 0.00853081" quat="0.345148 0.621001 -0.345297 0.613189" mass="0.0162899" diaginertia="1.83368e-06 1.26333e-06 1.05244e-06"/>
+            <joint name="R_upper_hip_R_upper_hip_yaw" pos="0 0 0" axis="0 0 1" range="-0.785398 0" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="R_lower_hip_collision" pos="-0.0583613 -0.00079845 0.0851761" quat="0 0 -0.707107 0.707107" type="mesh" mesh="R_lower_hip"/>
+            <body name="R_thigh" pos="0.0182435 0.0019 0.00895998" quat="0.5 -0.5 -0.5 0.5">
+                <inertial pos="-0.0044499 -0.0267016 -0.00193259" quat="0.750416 0.659737 -0.0170408 -0.0365088" mass="0.0169706" diaginertia="2.31044e-06 1.68391e-06 1.1008e-06"/>
+                <joint name="R_lower_hip_R_lower_hip_roll" pos="0 0 0" axis="0 0 -1" range="0 1.39626" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="R_thigh_collision" pos="-0.0030803 -0.0762685 0.076848" quat="0.707107 0 -0.707107 0" type="mesh" mesh="R_thigh"/>
+                <body name="R_calf" pos="-0.00499957 -0.0328591 0.0171705" quat="0 1 0 0">
+                <inertial pos="0.00104162 0.0343075 0.00283321" quat="0.585075 0.413925 -0.570697 0.400822" mass="0.0256881" diaginertia="7.53785e-06 5.67936e-06 3.67243e-06"/>
+                <joint name="R_thigh_R_knee_roll" pos="0 0 0" axis="0 0 -1" range="0 1.39626" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="R_calf_collision_visual" pos="0.00186919 0.0430566 -0.0593016" quat="0 -0.707107 0 0.707107" type="mesh" mesh="R_calf" contype="0" conaffinity="0"/>
+                <!-- add calf sites & collision frames -->
+                <site name="R_foot_site_front_L" pos="0.005 0.05 -0.013" size="0.003" material="green"/>
+                <body name="R_calf_collision_frame" pos="0.008 0.0505 -0.005" euler="0 0 0">
+                    <geom name="R_calf_collision" type="box" size="0.02 0.002 0.01" material="red" group="3"/>
+                    <geom name="R_calf_collision_toes" type="cylinder" size="0.015 0.002" euler="1.57 0 0" pos="-0.02 0 0.0085" friction="1 0.1 0.01" material="red" group="3"/>         
+                </body>
+                </body>
+            </body>
+            </body>
+        </body>
+        <!-- ================================================== -->
+        <!-- LEFT LEG                                           -->
+        <!-- IMPORTANT: NOW INSIDE PELVIS                        -->
+        <!-- ================================================== -->
+        <body name="L_upper_hip" pos="-0.00448385 0.103422 -0.00987889" quat="0.707107 0 0.707107 0">
+            <inertial pos="-0.00853081 0.000985026 -0.00689492" quat="0.962578 0.270947 0.00400439 0.00397763" mass="0.0162899" diaginertia="1.83386e-06 1.26243e-06 1.05351e-06"/>
+            <joint name="pelvis_L_pelvis_roll" pos="0 0 0" axis="-1 0 0" range="0 1.39626" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="L_upper_hip_collision" pos="-0.00980299 -0.103176 0.00464036" quat="0.707107 0 -0.707107 0" type="mesh" mesh="L_upper_hip"/>
+            <body name="L_lower_hip" pos="-0.00895998 -0.0181568 -0.0019" quat="0.707107 0.707107 0 0">
+            <inertial pos="-0.000985022 -0.00689492 0.00853082" quat="0.620753 0.345802 -0.612771 0.345829" mass="0.0162899" diaginertia="1.83386e-06 1.26243e-06 1.05351e-06"/>
+            <joint name="L_upper_hip_L_upper_hip_yaw" pos="0 0 0" axis="0 0 1" range="0 0.785398" actuatorfrcrange="-1000000 1000000"/>
+            <geom name="L_lower_hip_collision" pos="0.00683762 0.000846055 0.0851761" quat="0.707107 -0.707107 0 0" type="mesh" mesh="L_lower_hip"/>
+            <body name="L_thigh" pos="0.0181568 -0.0019 0.00895998" quat="0.5 0.5 0.5 0.5">
+                <inertial pos="0.0044499 0.0267016 0.00193259" quat="0.750416 0.659737 -0.017041 -0.0365088" mass="0.0169706" diaginertia="2.31044e-06 1.68391e-06 1.1008e-06"/>
+                <joint name="L_lower_hip_L_lower_hip_roll" pos="0 0 0" axis="0 0 1" range="-1.39626 0" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="L_thigh_collision" pos="0.00311852 0.0762831 -0.0112832" quat="0 0.707107 0 0.707107" type="mesh" mesh="L_thigh"/>
+                <body name="L_calf" pos="0.00499957 0.0328591 -0.0171705" quat="0 -1 0 0">
+                <inertial pos="-0.000874335 -0.0343372 -0.00287938" quat="0.58251 0.422108 -0.56647 0.402018" mass="0.0257336" diaginertia="7.5189e-06 5.70046e-06 3.6883e-06"/>
+                <joint name="L_thigh_L_knee_roll" pos="0 0 0" axis="0 0 1" range="-1.39626 0" actuatorfrcrange="-1000000 1000000"/>
+                <geom name="L_calf_collision_visual" pos="-0.00183098 -0.0430713 -0.00626324" quat="0.707107 0 0.707107 0" type="mesh" mesh="L_calf" contype="0" conaffinity="0"/>
+                <!-- foot sites -->
+                <site name="L_foot_site_front_L" pos="-0.005 -0.05 0.013" size="0.003" material="green"/>
+                <body name="L_calf_collision_frame" pos="-0.002 -0.0505 0.005" euler="0 0 0">
+                    <geom name="L_calf_collision" type="box" size="0.02 0.002 0.01" material="red" group="3"/>
+                    <geom name="L_calf_collision_toes" type="cylinder" size="0.015 0.002" euler="1.57 0 0" pos="0.014 0 -0.009" friction="1 0.1 0.01" material="red" group="3"/>
+                </body>
+                </body>
+            </body>
+            </body>
+        </body>
+        </body>
+    </worldbody>
+
+    <sensor>
+        <framequat name="torso_orientation"
+                    objtype="site"
+                    objname="torso_imu"/>
+
+        <gyro name="torso_gyro"
+                site="torso_imu"/>
+
+        <accelerometer name="torso_acc"
+                        site="torso_imu"/>
+    </sensor>
+
+
+    <actuator>
+        <!-- Torso -->
+        <position name="pelvis_yaw_motor" joint="pelvis_pelvis_yaw" kp="20"/>
+
+        <!-- Right Arm -->
+        <position name="R_shoulder_pitch_motor" joint="torso_R_shoulder_pitch" kp="20"/>
+        <position name="R_shoulder_roll_motor" joint="R_shoulder_R_shoulder_roll" kp="20"/>
+        <position name="R_elbow_roll_motor" joint="R_upper_arm_R_elbow_roll" kp="20"/>
+        <position name="R_wrist_pitch_motor" joint="R_forearm_R_wrist_pitch" kp="30"/>
+        <position name="R_wrist_roll_motor" joint="R_hand_R_wrist_roll" kp="0.05" forcelimited="true" forcerange="-0.176 0.176"/>
+
+        <!-- Left Arm -->
+        <position name="L_shoulder_pitch_motor" joint="torso_L_shoulder_pitch" kp="20"/>
+        <position name="L_shoulder_roll_motor" joint="L_shoulder_L_shouldr_roll" kp="20"/>
+        <position name="L_elbow_roll_motor" joint="L_upper_arm_L_elbow_roll" kp="20"/>
+        <position name="L_wrist_pitch_motor" joint="L_forearm_L_wrist_pitch" kp="30"/>
+        <position name="L_wrist_roll_motor" joint="L_hand_L_wrist_roll" kp="0.05" forcelimited="true" forcerange="-0.176 0.176"/>
+
+        <!-- Right Leg -->
+        <position name="R_pelvis_roll_motor" joint="pelvis_R_pelvis_roll" kp="20"/>
+        <position name="R_hip_yaw_motor" joint="R_upper_hip_R_upper_hip_yaw" kp="20"/>
+        <position name="R_hip_roll_motor" joint="R_lower_hip_R_lower_hip_roll" kp="20"/>
+        <position name="R_knee_roll_motor" joint="R_thigh_R_knee_roll" kp="20"/>
+
+        <!-- Left Leg -->
+        <position name="L_pelvis_roll_motor" joint="pelvis_L_pelvis_roll" kp="20"/>
+        <position name="L_hip_yaw_motor" joint="L_upper_hip_L_upper_hip_yaw" kp="20"/>
+        <position name="L_hip_roll_motor" joint="L_lower_hip_L_lower_hip_roll" kp="20"/>
+        <position name="L_knee_roll_motor" joint="L_thigh_L_knee_roll" kp="20"/>
+    </actuator>
+
+  <!-- ================================================== -->
+  <!-- HIGH POSE                                          -->
+  <!-- Arms bent + Legs extended                          -->
+  <!-- ================================================== -->
+
+    <keyframe>
+        <key name="high_pose"
+            qpos="0.00000000 0.02600000 0.08000000 0.00056331 0.00056286 0.70738804 0.70682496 0.00000000 0.00000000 -1.04719755 -1.39626340 0.00000000 0.00000000 0.00000000 1.04719755 1.39626340 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000"/>
+    </keyframe>
+
+</mujoco>
+    

@@ -1,0 +1,12 @@
+<mujoco model="climbing_horizontal">
+
+    <compiler angle="radian"/>
+    <option timestep="0.001" gravity="0 0 -9.8" integrator="RK4" iterations="60" ls_iterations="20"/>
+    <default>
+        <joint limited="true" armature="0.01" damping="2"/>
+    </default>
+
+    <include file="robot.xml"/>
+    <include file="scenes/horizontal.xml"/>
+    
+</mujoco>
