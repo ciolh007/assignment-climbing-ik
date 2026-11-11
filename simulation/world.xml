@@ -1,7 +1,7 @@
 <mujoco model="climbing-ik">
 
     <compiler angle="radian"/>
-    <option timestep="0.001" gravity="0 0 -9.8" integrator="RK4" iterations="60" ls_iterations="20"/>
+    <option timestep="0.001" integrator="RK4" iterations="60" ls_iterations="20"/>
     
     <include file="models/alex/alex.xml"/>
     <include file="models/microban/microban.xml"/>
