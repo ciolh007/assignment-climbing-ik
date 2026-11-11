@@ -39,7 +39,7 @@
         <!-- ====================================================== -->
         <body name="pelvis" pos="0 -0.5 0.05" euler="1.57 3.14 0">
         <!-- Pelvis mesh -->
-        <freejoint name="robot_free_root"/>
+        <!-- <freejoint name="robot_free_root"/> -->
         <geom name="pelvis_collision" type="mesh" mesh="pelvis"/>
         <!-- ================================================== -->
         <!-- TORSO                                              -->
